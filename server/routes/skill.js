@@ -3,6 +3,20 @@ const router = express.Router();
 const verifyToken = require("../middleware/auth");
 const Skill = require("../models/Skill");
 
+//@route GET api/skills
+//@desc Create a skill
+//@access private
+router.get("/", verifyToken, async (req, res) => {
+  try {
+    const skills = await Skill.find({ user: req.userId }).populate("user", [
+      "username",
+    ]);
+    res.json({ success: true, skills });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
 //@route POST api/skills
 //@desc Create a skill
 //@access private
