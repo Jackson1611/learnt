@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-
+const verifyToken = require("../middleware/auth");
 const Skill = require("../models/Skill");
 
 //@route POST api/skills
 //@desc Create a skill
 //@access private
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const { title, description, url, status } = req.body;
 
   if (!title) {
