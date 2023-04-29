@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
+import "./Login.css";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,20 +21,25 @@ const Login = ({ onLogin }) => {
     });
 
     const data = await response.json();
+    console.log(data);
     if (response.ok) {
       localStorage.setItem("accessToken", data.accessToken);
-      onLogin();
+      localStorage.setItem("username", data.username);
+      navigate("/skills");
     } else {
-      console.error(data.error);
+      setError(data.message);
     }
   };
 
   return (
-    <div>
+    <div className="login-form-container">
+      <h1>Login</h1>
+      {error && <Alert severity="error">{error}</Alert>}
       <form onSubmit={handleSubmit}>
         <label>
           Username:
           <input
+            className="login-input"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -40,13 +49,16 @@ const Login = ({ onLogin }) => {
         <label>
           Password:
           <input
+            className="login-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <button className="login-button" type="submit">
+          Login
+        </button>
       </form>
       <br />
       <Link to="/register">Register</Link>
