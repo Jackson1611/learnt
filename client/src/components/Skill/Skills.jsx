@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import SkillCard from "./SkillCard";
 import { Alert } from "@mui/material";
+import AddSkill from "./AddSkill";
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
@@ -46,6 +47,7 @@ const Skills = () => {
           Welcome back {username}!
         </Alert>
       )}
+      <AddSkill />
       <h2> Skills</h2>
       <Grid container spacing={2}>
         {skills.map((skill) => (
