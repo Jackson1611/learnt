@@ -37,7 +37,7 @@ router.post("/", verifyToken, async (req, res) => {
       description,
       url,
       status: status || "to learn",
-      user: "64464dbb48503c0983720851",
+      user: req.userId,
     });
 
     await newSkill.save();

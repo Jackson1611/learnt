@@ -24,7 +24,17 @@ const AddSkill = (props) => {
   };
   const handleClose = () => {
     setOpen(false);
+    setTitle("");
+    setDescription("");
+    setStatus("to learn");
+    setUrl("");
   };
+
+  const addSkill = () => {
+    props.saveSkill({ title, description, status, url });
+    handleClose();
+  };
+
   return (
     <div>
       <Button
@@ -67,7 +77,7 @@ const AddSkill = (props) => {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <Button>Add Skill</Button>
+          <Button onClick={addSkill}>Add Skill</Button>
         </DialogContent>
       </Dialog>
     </div>
