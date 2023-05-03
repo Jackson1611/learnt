@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import SkillCard from "./SkillCard";
 import { Alert } from "@mui/material";
 import AddSkill from "./AddSkill";
+import Navbar from "../Navbar/Navbar";
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
@@ -48,13 +49,8 @@ const Skills = () => {
     getSkills();
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("username");
-    navigate("/login");
-  };
-
   const username = localStorage.getItem("username");
+  const firstLetter = username.charAt(0).toUpperCase();
 
   useEffect(() => {
     getSkills();
@@ -62,6 +58,7 @@ const Skills = () => {
 
   return (
     <div>
+      <Navbar user={firstLetter} />
       {showAlert && (
         <Alert
           onClose={() => {
@@ -72,8 +69,7 @@ const Skills = () => {
           Welcome back {username}!
         </Alert>
       )}
-      <AddSkill saveSkill={saveSkill} />
-      <h2> Skills</h2>
+
       <Grid container spacing={2}>
         {skills.map((skill) => (
           <Grid item xs={12} sm={6} md={4} key={skill._id}>
@@ -81,7 +77,7 @@ const Skills = () => {
           </Grid>
         ))}
       </Grid>
-      <button onClick={handleLogout}>Logout</button>
+      <AddSkill saveSkill={saveSkill} />
     </div>
   );
 };

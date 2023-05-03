@@ -22,7 +22,7 @@ const Login = () => {
 
     const data = await response.json();
     console.log(data);
-    if (response.ok) {
+    if (data.success === true) {
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("username", data.username);
       navigate("/skills");
