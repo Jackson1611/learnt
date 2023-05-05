@@ -9,7 +9,6 @@ import {
   MenuItem,
   Avatar,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 
 function Navbar({ user }) {
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ function Navbar({ user }) {
     navigate("/login");
     setAnchorEl(null);
   };
-
+  console.log(user);
   return (
     <AppBar position="static" color="transparent">
       <Toolbar>

@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import SkillCard from "./SkillCard";
-import { Alert } from "@mui/material";
 import AddSkill from "./AddSkill";
 import Navbar from "../Navbar/Navbar";
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
-  const [showAlert, setShowAlert] = useState(true);
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
@@ -50,7 +48,14 @@ const Skills = () => {
   };
 
   const username = localStorage.getItem("username");
-  const firstLetter = username.charAt(0).toUpperCase();
+  function getFirstLetter(username) {
+    if (username) {
+      return username.charAt(0).toUpperCase();
+    } else {
+      return "";
+    }
+  }
+  const firstLetter = getFirstLetter(username);
 
   useEffect(() => {
     getSkills();
@@ -59,25 +64,17 @@ const Skills = () => {
   return (
     <div>
       <Navbar user={firstLetter} />
-      {showAlert && (
-        <Alert
-          onClose={() => {
-            setShowAlert(false);
-          }}
-          severity="success"
-        >
-          Welcome back {username}!
-        </Alert>
-      )}
 
-      <Grid container spacing={2}>
-        {skills.map((skill) => (
-          <Grid item xs={12} sm={6} md={4} key={skill._id}>
-            <SkillCard skill={skill} onDelete={handleDeleteSkill} />
-          </Grid>
-        ))}
-      </Grid>
-      <AddSkill saveSkill={saveSkill} />
+      <div style={{ marginTop: "2rem" }}>
+        <Grid container spacing={2}>
+          {skills.map((skill) => (
+            <Grid item xs={12} sm={6} md={4} key={skill._id}>
+              <SkillCard skill={skill} onDelete={handleDeleteSkill} />
+            </Grid>
+          ))}
+        </Grid>
+        <AddSkill saveSkill={saveSkill} />
+      </div>
     </div>
   );
 };

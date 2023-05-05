@@ -17,7 +17,18 @@ function SkillCard({ skill, onDelete }) {
     }
   };
   return (
-    <Card sx={{ minWidth: 275, marginBottom: 2, maxWidth: 400 }}>
+    <Card
+      sx={{
+        minWidth: 275,
+        marginBottom: 2,
+        maxWidth: 400,
+        boxShadow: 5,
+        ":hover": {
+          transform: "scale(1.05)",
+          transition: "all 0.3s ease-in-out",
+        },
+      }}
+    >
       <CardContent>
         <Typography variant="h5" component="h2">
           {skill.title}
