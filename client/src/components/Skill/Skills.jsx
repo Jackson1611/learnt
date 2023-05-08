@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import SkillCard from "./SkillCard";
 import AddSkill from "./AddSkill";
 import Navbar from "../Navbar/Navbar";
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);
+  const [screenType, setScreenType] = useState("all");
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
@@ -17,7 +18,7 @@ const Skills = () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    if (response.status == 401 || response.status == 403) {
+    if (response.status === 401 || response.status === 403) {
       navigate("/login");
     } else {
       const data = await response.json();
@@ -61,13 +62,51 @@ const Skills = () => {
     getSkills();
   }, []);
 
+  const handleScreenTypeChange = (event, newScreenType) => {
+    event.preventDefault();
+    setScreenType(newScreenType);
+  };
+
+  const filteredSkills = skills.filter((skill) => {
+    if (screenType === "all") {
+      return true;
+    } else if (screenType === "to learn") {
+      return skill.status === "to learn";
+    } else if (screenType === "learning") {
+      return skill.status === "learning";
+    } else if (screenType === "learned") {
+      return skill.status === "learned";
+    }
+    return true;
+  });
+
   return (
     <div>
       <Navbar user={firstLetter} />
 
       <div style={{ marginTop: "2rem" }}>
+        <ToggleButtonGroup
+          value={screenType}
+          exclusive
+          onChange={handleScreenTypeChange}
+          aria-label="screen-type"
+          style={{ marginBottom: "2rem" }}
+        >
+          <ToggleButton value="all" aria-label="all">
+            All Skills
+          </ToggleButton>
+          <ToggleButton value="to learn" aria-label="to learn">
+            To Learn
+          </ToggleButton>
+          <ToggleButton value="learning" aria-label="learning">
+            Learning
+          </ToggleButton>
+          <ToggleButton value="learned" aria-label="learned">
+            Learnt
+          </ToggleButton>
+        </ToggleButtonGroup>
         <Grid container spacing={2}>
-          {skills.map((skill) => (
+          {filteredSkills.map((skill) => (
             <Grid item xs={12} sm={6} md={4} key={skill._id}>
               <SkillCard skill={skill} onDelete={handleDeleteSkill} />
             </Grid>

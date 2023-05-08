@@ -18,22 +18,6 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 
-//@route GET api/skills/learning
-//@desc Get all skills that are learning
-//@access Private
-router.get("/learning", verifyToken, async (req, res) => {
-  try {
-    const skills = await Skill.find({
-      user: req.userId,
-      status: "learning",
-    }).populate("user", ["username"]);
-    res.json({ success: true, skills });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-});
-
 //@route POST api/skills
 //@desc Create a skill
 //@access private

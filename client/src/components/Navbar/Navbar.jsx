@@ -36,18 +36,6 @@ function Navbar({ user }) {
           LEARN IT
         </Typography>
         <div>
-          <Button color="inherit" component={Link} to="/">
-            Home
-          </Button>
-          <Button color="inherit" component={Link} to="/login">
-            Login
-          </Button>
-          <Button color="inherit" component={Link} to="/skills/learning">
-            Learning
-          </Button>
-          <Button color="inherit" component={Link} to="/skills">
-            Skills
-          </Button>
           <Button color="inherit" onClick={handleMenuClick}>
             <Avatar sx={{ bgcolor: "secondary.main" }}>{user}</Avatar>
           </Button>
