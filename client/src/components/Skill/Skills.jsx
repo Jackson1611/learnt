@@ -92,6 +92,8 @@ const Skills = () => {
           aria-label="screen-type"
           style={{ marginBottom: "2rem" }}
         >
+          {" "}
+          <AddSkill saveSkill={saveSkill} />
           <ToggleButton value="all" aria-label="all">
             All Skills
           </ToggleButton>
@@ -112,7 +114,6 @@ const Skills = () => {
             </Grid>
           ))}
         </Grid>
-        <AddSkill saveSkill={saveSkill} />
       </div>
     </div>
   );
