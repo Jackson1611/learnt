@@ -16,6 +16,20 @@ function SkillCard({ skill, onDelete }) {
       });
     }
   };
+
+  let cardBackground;
+  switch (skill.status) {
+    case "to learn":
+      cardBackground = "lightblue";
+      break;
+    case "learning":
+      cardBackground = "lightyellow";
+      break;
+    case "learned":
+      cardBackground = "lightgreen";
+      break;
+  }
+
   return (
     <Card
       sx={{
@@ -27,6 +41,7 @@ function SkillCard({ skill, onDelete }) {
           transform: "scale(1.05)",
           transition: "all 0.3s ease-in-out",
         },
+        backgroundColor: cardBackground,
       }}
     >
       <CardContent>
