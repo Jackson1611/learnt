@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const AddSkill = (props) => {
   const [open, setOpen] = useState(false);
@@ -38,12 +39,11 @@ const AddSkill = (props) => {
   return (
     <div>
       <Button
-        style={{ marginRight: 15, fontSize: "16px" }}
-        variant="outlined"
-        size="medium"
+        style={{ marginRight: 15, fontSize: "16px", color: "black" }}
+        size="large"
         onClick={handleClickOpen}
       >
-        Add Skill
+        <AddCircleOutlineIcon />
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Skill</DialogTitle>

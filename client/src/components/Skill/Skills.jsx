@@ -85,28 +85,35 @@ const Skills = () => {
       <Navbar user={firstLetter} />
 
       <div style={{ marginTop: "2rem" }}>
-        <ToggleButtonGroup
-          value={screenType}
-          exclusive
-          onChange={handleScreenTypeChange}
-          aria-label="screen-type"
-          style={{ marginBottom: "2rem" }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "2rem",
+          }}
         >
-          {" "}
+          <ToggleButtonGroup
+            value={screenType}
+            exclusive
+            onChange={handleScreenTypeChange}
+            aria-label="screen-type"
+          >
+            <ToggleButton value="all" aria-label="all">
+              All Skills
+            </ToggleButton>
+            <ToggleButton value="to learn" aria-label="to learn">
+              To Learn
+            </ToggleButton>
+            <ToggleButton value="learning" aria-label="learning">
+              Learning
+            </ToggleButton>
+            <ToggleButton value="learned" aria-label="learned">
+              Learnt
+            </ToggleButton>
+          </ToggleButtonGroup>
           <AddSkill saveSkill={saveSkill} />
-          <ToggleButton value="all" aria-label="all">
-            All Skills
-          </ToggleButton>
-          <ToggleButton value="to learn" aria-label="to learn">
-            To Learn
-          </ToggleButton>
-          <ToggleButton value="learning" aria-label="learning">
-            Learning
-          </ToggleButton>
-          <ToggleButton value="learned" aria-label="learned">
-            Learnt
-          </ToggleButton>
-        </ToggleButtonGroup>
+        </div>
+
         <Grid container spacing={2}>
           {filteredSkills.map((skill) => (
             <Grid item xs={12} sm={6} md={4} key={skill._id}>
