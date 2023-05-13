@@ -38,11 +38,7 @@ const AddSkill = (props) => {
 
   return (
     <div>
-      <Button
-        style={{ marginRight: 15, fontSize: "16px", color: "black" }}
-        size="large"
-        onClick={handleClickOpen}
-      >
+      <Button style={{ color: "black" }} size="large" onClick={handleClickOpen}>
         <AddCircleOutlineIcon />
       </Button>
       <Dialog open={open} onClose={handleClose}>

@@ -33,9 +33,9 @@ function SkillCard({ skill, onDelete }) {
   return (
     <Card
       sx={{
-        minWidth: 275,
-        marginBottom: 2,
-        maxWidth: 400,
+        width: 400,
+        height: 200,
+        margin: 1,
         boxShadow: 5,
         ":hover": {
           transform: "scale(1.05)",

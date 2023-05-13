@@ -97,6 +97,11 @@ const Skills = () => {
             exclusive
             onChange={handleScreenTypeChange}
             aria-label="screen-type"
+            style={{
+              outline: "none",
+              border: "none",
+              backgroundColor: "transparent",
+            }}
           >
             <ToggleButton value="all" aria-label="all">
               All Skills
@@ -114,9 +119,13 @@ const Skills = () => {
           <AddSkill saveSkill={saveSkill} />
         </div>
 
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={2}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           {filteredSkills.map((skill) => (
-            <Grid item xs={12} sm={6} md={4} key={skill._id}>
+            <Grid item key={skill._id}>
               <SkillCard skill={skill} onDelete={handleDeleteSkill} />
             </Grid>
           ))}

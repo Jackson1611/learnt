@@ -9,6 +9,7 @@ import {
   MenuItem,
   Avatar,
 } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Navbar({ user }) {
   const navigate = useNavigate();
@@ -44,7 +45,9 @@ function Navbar({ user }) {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>
+              <LogoutIcon style={{ marginRight: "10px" }} /> Logout
+            </MenuItem>
           </Menu>
         </div>
       </Toolbar>
