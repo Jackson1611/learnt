@@ -116,7 +116,6 @@ const Skills = () => {
               Learnt
             </ToggleButton>
           </ToggleButtonGroup>
-          <AddSkill saveSkill={saveSkill} />
         </div>
 
         <Grid
@@ -130,6 +129,15 @@ const Skills = () => {
             </Grid>
           ))}
         </Grid>
+        <div
+          style={{
+            position: "fixed",
+            bottom: "3rem",
+            right: "3rem",
+          }}
+        >
+          <AddSkill saveSkill={saveSkill} />
+        </div>
       </div>
     </div>
   );

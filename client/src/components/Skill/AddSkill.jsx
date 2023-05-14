@@ -10,6 +10,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
@@ -38,9 +39,20 @@ const AddSkill = (props) => {
 
   return (
     <div>
-      <Button style={{ color: "black" }} size="large" onClick={handleClickOpen}>
-        <AddCircleOutlineIcon />
-      </Button>
+      <Tooltip
+        title="Add Skill"
+        placement="top"
+        arrow
+        style={{ fontSize: "5rem" }}
+      >
+        <Button
+          style={{ color: "black", fontSize: "2rem" }}
+          size="large"
+          onClick={handleClickOpen}
+        >
+          <AddCircleOutlineIcon />
+        </Button>
+      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Skill</DialogTitle>
         <DialogContent>
@@ -60,6 +72,7 @@ const AddSkill = (props) => {
             onChange={(e) => setDescription(e.target.value)}
           />
           <FormControl fullWidth margin="dense">
+            <InputLabel>Status</InputLabel>
             <Select value={status} onChange={(e) => setStatus(e.target.value)}>
               <MenuItem value="to learn">To Learn</MenuItem>
               <MenuItem value="learning">Learning</MenuItem>
