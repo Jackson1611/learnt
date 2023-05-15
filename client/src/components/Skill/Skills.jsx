@@ -88,7 +88,7 @@ const Skills = () => {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             marginBottom: "2rem",
           }}
         >

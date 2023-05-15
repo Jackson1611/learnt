@@ -43,7 +43,7 @@ const AddSkill = (props) => {
         title="Add Skill"
         placement="top"
         arrow
-        style={{ fontSize: "5rem" }}
+        style={{ fontSize: "20px" }}
       >
         <Button
           style={{ color: "black", fontSize: "2rem" }}

@@ -1,8 +1,31 @@
 import React from "react";
-import { Card, CardContent, Typography, IconButton } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 function SkillCard({ skill, onDelete }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    handleCloseMenu();
+  };
+
   const handleDelete = () => {
     if (window.confirm(`Do you really want to delete ${skill.title}?`)) {
       fetch(`http://localhost:3001/api/skill/${skill._id}`, {
@@ -45,9 +68,34 @@ function SkillCard({ skill, onDelete }) {
       }}
     >
       <CardContent>
-        <Typography variant="h5" component="h2">
-          {skill.title}
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h5" component="h2">
+            {skill.title}
+          </Typography>
+          <IconButton onClick={handleOpenMenu} aria-label="settings">
+            <SettingsIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseMenu}
+          >
+            <MenuItem onClick={handleEdit}>
+              <EditIcon sx={{ marginRight: 1 }} />
+              Edit
+            </MenuItem>
+            <MenuItem onClick={handleDelete}>
+              <DeleteIcon sx={{ marginRight: 1 }} />
+              Delete
+            </MenuItem>
+          </Menu>
+        </div>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {skill.description}
         </Typography>
@@ -55,9 +103,6 @@ function SkillCard({ skill, onDelete }) {
         <Typography variant="body2">
           <a href={skill.url}>{skill.url}</a>
         </Typography>
-        <IconButton onClick={handleDelete} aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
       </CardContent>
     </Card>
   );
