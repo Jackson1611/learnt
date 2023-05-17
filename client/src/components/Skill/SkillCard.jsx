@@ -61,7 +61,7 @@ function SkillCard({ skill, onDelete }) {
         margin: 1,
         boxShadow: 5,
         ":hover": {
-          transform: "scale(1.05)",
+          transform: "scale(1.02)",
           transition: "all 0.3s ease-in-out",
         },
         backgroundColor: cardBackground,
@@ -75,9 +75,7 @@ function SkillCard({ skill, onDelete }) {
             alignItems: "center",
           }}
         >
-          <Typography variant="h5" component="h2">
-            {skill.title}
-          </Typography>
+          <Typography variant="h5">{skill.title}</Typography>
           <IconButton onClick={handleOpenMenu} aria-label="settings">
             <SettingsIcon />
           </IconButton>
