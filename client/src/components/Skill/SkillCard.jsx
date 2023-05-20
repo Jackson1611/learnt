@@ -10,6 +10,7 @@ import {
 import SettingsIcon from "@mui/icons-material/Settings";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import EditSkill from "./EditSkill";
 
 function SkillCard({ skill, onDelete }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -85,8 +86,7 @@ function SkillCard({ skill, onDelete }) {
             onClose={handleCloseMenu}
           >
             <MenuItem onClick={handleEdit}>
-              <EditIcon sx={{ marginRight: 1 }} />
-              Edit
+              <EditSkill /> Edit Skill
             </MenuItem>
             <MenuItem onClick={handleDelete}>
               <DeleteIcon sx={{ marginRight: 1 }} />
