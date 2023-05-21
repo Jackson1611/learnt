@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,13 +9,13 @@ import {
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import EditSkill from "./EditSkill";
 
 function SkillCard({ skill, onDelete }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleOpenMenu = (event) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
@@ -52,7 +52,15 @@ function SkillCard({ skill, onDelete }) {
     case "learned":
       cardBackground = "lightgreen";
       break;
+    default:
+      cardBackground = "white";
+      break;
   }
+
+  const handleSaveSkill = (updatedSkill) => {
+    // Handle the updated skill data
+    console.log(updatedSkill);
+  };
 
   return (
     <Card
@@ -86,7 +94,7 @@ function SkillCard({ skill, onDelete }) {
             onClose={handleCloseMenu}
           >
             <MenuItem onClick={handleEdit}>
-              <EditSkill /> Edit Skill
+              <EditSkill onSave={handleSaveSkill} /> Edit Skill
             </MenuItem>
             <MenuItem onClick={handleDelete}>
               <DeleteIcon sx={{ marginRight: 1 }} />

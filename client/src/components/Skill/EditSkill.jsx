@@ -12,10 +12,9 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import EditIcon from "@mui/icons-material/Edit";
 
-const EditSkill = (props) => {
+const EditSkill = ({ onSave }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -25,6 +24,7 @@ const EditSkill = (props) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
     setTitle("");
@@ -33,15 +33,21 @@ const EditSkill = (props) => {
     setUrl("");
   };
 
-  const addSkill = () => {
-    props.saveSkill({ title, description, status, url });
+  const handleSave = () => {
+    const newSkill = {
+      title: title,
+      description: description,
+      status: status,
+      url: url,
+    };
+    onSave(newSkill);
     handleClose();
   };
 
   return (
     <div>
-      <Tooltip>
-        <Button>
+      <Tooltip title="Edit">
+        <Button onClick={handleClickOpen}>
           <EditIcon />
         </Button>
       </Tooltip>
@@ -78,8 +84,11 @@ const EditSkill = (props) => {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <Button onClick={addSkill}>Add Skill</Button>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSave}>Save</Button>
+        </DialogActions>
       </Dialog>
     </div>
   );
