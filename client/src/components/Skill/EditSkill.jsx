@@ -1,97 +1,104 @@
 import React, { useState } from "react";
 import {
-  Button,
   Dialog,
-  DialogActions,
-  DialogContent,
   DialogTitle,
+  DialogContent,
+  DialogActions,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Tooltip,
+  Button,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 
-const EditSkill = ({ onSave }) => {
-  const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("to learn");
-  const [url, setUrl] = useState("");
+function EditSkill({ skill, onClose }) {
+  const [title, setTitle] = useState(skill.title);
+  const [description, setDescription] = useState(skill.description);
+  const [status, setStatus] = useState(skill.status);
+  const [url, setUrl] = useState(skill.url);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setTitle("");
-    setDescription("");
-    setStatus("to learn");
-    setUrl("");
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
   };
 
-  const handleSave = () => {
-    const newSkill = {
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value);
+  };
+
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value);
+  };
+
+  const handleUpdate = () => {
+    const updatedSkill = {
       title: title,
       description: description,
       status: status,
       url: url,
     };
-    onSave(newSkill);
-    handleClose();
+
+    fetch(`http://localhost:3001/api/skill/${skill._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(updatedSkill),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        onClose();
+      });
+  };
+
+  const handleCancel = () => {
+    onClose();
   };
 
   return (
-    <div>
-      <Tooltip title="Edit">
-        <Button onClick={handleClickOpen}>
-          <EditIcon />
+    <Dialog open={true} onClose={handleCancel}>
+      <DialogTitle>Edit Skill</DialogTitle>
+      <DialogContent>
+        <TextField
+          label="Title"
+          value={title}
+          onChange={handleTitleChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Description"
+          value={description}
+          onChange={handleDescriptionChange}
+          fullWidth
+          margin="normal"
+          multiline
+          rows={4}
+        />
+        <TextField
+          label="Status"
+          value={status}
+          onChange={handleStatusChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="URL"
+          value={url}
+          onChange={handleUrlChange}
+          fullWidth
+          margin="normal"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleUpdate} color="primary">
+          Update
         </Button>
-      </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Skill</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Title"
-            fullWidth
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            label="Description"
-            fullWidth
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <FormControl fullWidth margin="dense">
-            <InputLabel>Status</InputLabel>
-            <Select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <MenuItem value="to learn">To Learn</MenuItem>
-              <MenuItem value="learning">Learning</MenuItem>
-              <MenuItem value="learned">Learned</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            margin="dense"
-            label="URL"
-            fullWidth
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSave}>Save</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+      </DialogActions>
+    </Dialog>
   );
-};
+}
 
 export default EditSkill;
