@@ -71,6 +71,7 @@ function SkillCard({ skill, onDelete }) {
           height: 200,
           margin: 1,
           boxShadow: 5,
+          borderRadius: 3,
           ":hover": {
             transform: "scale(1.02)",
             transition: "all 0.3s ease-in-out",
